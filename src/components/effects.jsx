@@ -6,7 +6,7 @@ export default function Effects() {
 
 	useEffect(() => {
 		const id = setInterval(() => {
-			setCount(count + 1); // count is 0
+			setCount((prevCount) => prevCount + 1);
 		}, 1000);
 		return () => clearInterval(id);
 	}, []);

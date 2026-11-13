@@ -1,23 +1,39 @@
-import { useEffect } from 'react';
-// import ProductCard from './product-card';
+import { useEffect, useState } from 'react';
+import ProductCard from './product-card';
+
+const BASE_URL = 'https://fakestoreapi.com';
 
 export default function RandomProduct() {
-	// fetch products depending on the product id https://fakestoreapi.com/products/${productId}
-	useEffect(
-		() => {
-			// write your fetch logic here
-		},
-		[
-			/*productId*/
-		],
-	);
+	const [productId, setProductId] = useState(1);
+	const [product, setProduct] = useState(null);
 
-	// implement a randomize function that returns a random integer from 1 to 20 and updates the productId state variable
-	function randomize() {}
+	useEffect(() => {
+		fetch(`${BASE_URL}/products/${productId}`)
+			.then((res) => res.json())
+			.then((data) => setProduct(data));
+	}, [productId]);
+
+	function randomize() {
+		const nextId = Math.floor(Math.random() * 20) + 1;
+		setProductId(nextId);
+	}
+
+	if (!product) {
+		return <div className="text-gray-500">Loading random product...</div>;
+	}
 
 	return (
-		<div>
-			{/* display the ui here. Re-use the product card we built earlier */}
+		<div className="space-y-4">
+			<div className="flex justify-end">
+				<button
+					type="button"
+					className="rounded-md bg-violet-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-violet-500"
+					onClick={randomize}
+				>
+					Randomize product
+				</button>
+			</div>
+			<ProductCard {...product} />
 		</div>
 	);
 }

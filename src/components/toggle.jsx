@@ -1,5 +1,5 @@
 import { PanelLeftClose, PanelRightClose, Target } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const navlinks = [
 	{
@@ -33,12 +33,12 @@ export default function Toggle() {
 	const [open, setOpen] = useState(true);
 
 	function handleToggle() {
-		setOpen(!open);
+		setOpen((prevOpen) => !prevOpen);
 	}
 
-	// useEffect(() => {
-	// 	console.log('This will be called everytime the app re-renders');
-	// });
+	useEffect(() => {
+		console.log('This will be called everytime the app re-renders');
+	});
 
 	return (
 		<div className="flex gap-5 flex-1">
